@@ -23,6 +23,7 @@
     "vue": "^2.6.10"
   },
   "devDependencies": {
+    "uglifyjs-webpack-plugin": "^2.1.2",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1"
