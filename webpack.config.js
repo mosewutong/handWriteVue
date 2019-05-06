@@ -2,6 +2,7 @@ let path = require('path');
 let webpack = require('webpack');
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin  = require("html-webpack-plugin");  // 曹组 html
 
 module.exports = {
     entry: './src/main.js', // 项目的入口文件，webpack会从main.js开始，把所有依赖的js都加载打包
@@ -20,8 +21,20 @@ module.exports = {
         inline: true,   //内联模式
         noInfo: false,   //只保留错误警告
     },
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        }
+    },
 
     plugins:[
-        // new UglifyJsPlugin()  //代码压缩
+        // new UglifyJsPlugin(),  //代码压缩
+        new HtmlWebpackPlugin({
+            filename:'./index.html',
+            template:'./index.html',
+            minify:{
+                collapseWhitespace:true //折叠空白区域 也就是压缩代码
+            },
+        }),
     ]
 };
