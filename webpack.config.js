@@ -58,7 +58,7 @@ module.exports = {
             clearConsole:true,
             compilationSuccessInfo:{
                 messages:[`Your application is running here: http://${host}:${port}`],
-                notes: ['Some additionnal notes to be displayed unpon successful compilation']
+                // notes: ['Some additionnal notes to be displayed unpon successful compilation']
             },
             additionalFormatters: [],
             additionalTransformers: []
