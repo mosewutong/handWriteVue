@@ -4,6 +4,12 @@ let webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin  = require("html-webpack-plugin");  // 曹组 html
 
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+
+//主机和端口
+let host = '0.0.0.0';
+let port = '7000';
+
 module.exports = {
     entry: './src/main.js', // 项目的入口文件，webpack会从main.js开始，把所有依赖的js都加载打包
     output: {
@@ -15,11 +21,11 @@ module.exports = {
     devServer: {
         historyApiFallback: true,   //遇到404重定向到index.html
         overlay: true,    //将错误显示在html之上
-        host:"0.0.0.0",
-        port:"7000",
+        host:host,
+        port:port,
         hot:true,   //热刷新
         inline: true,   //内联模式
-        noInfo: false,   //只保留错误警告
+        noInfo: true,   //只保留错误警告
         //前端跨域代理解决
         proxy: {
             '/index': {
@@ -36,13 +42,26 @@ module.exports = {
     },
 
     plugins:[
+        //代码注入插件
         // new UglifyJsPlugin(),  //代码压缩
         new HtmlWebpackPlugin({
             filename:'./index.html',
             template:'./index.html',
+            inject:true,         // 自动注入   js/css
             minify:{
                 collapseWhitespace:true //折叠空白区域 也就是压缩代码
             },
         }),
+        
+        //输出控制台插件
+        new FriendlyErrorsWebpackPlugin({
+            clearConsole:true,
+            compilationSuccessInfo:{
+                messages:[`Your application is running here: http://${host}:${port}`],
+                notes: ['Some additionnal notes to be displayed unpon successful compilation']
+            },
+            additionalFormatters: [],
+            additionalTransformers: []
+        })
     ]
 };
