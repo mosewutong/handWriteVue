@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mosewutong/handWriteVue#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {

@@ -20,6 +20,14 @@ module.exports = {
         hot:true,   //热刷新
         inline: true,   //内联模式
         noInfo: false,   //只保留错误警告
+        //前端跨域代理解决
+        proxy: {
+            '/index': {
+                target: 'http://localhost:8000',
+                secure: false
+            }
+        }
+
     },
     resolve: {
         alias: {
