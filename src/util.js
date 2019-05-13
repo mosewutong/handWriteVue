@@ -14,5 +14,10 @@ export default {
         }).then(res=>{
             console.log('res======',res);
         })
+    },
+    getData() {
+        return new Promise((resolve, reject) => {
+            resolve('ok');
+        })
     }
 }

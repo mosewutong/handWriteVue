@@ -11,7 +11,7 @@ let host = '0.0.0.0';
 let port = '7000';
 
 module.exports = {
-    entry: './src/main.js', // 项目的入口文件，webpack会从main.js开始，把所有依赖的js都加载打包
+    entry: ['babel-polyfill','./src/main.js'], // 项目的入口文件，webpack会从main.js开始，把所有依赖的js都加载打包
     output: {
         path: path.resolve(__dirname, './dist'), // 项目的打包文件路径   __dirname当前文件的绝对路径
         publicPath: '/dist/', // 通过devServer访问路径
@@ -37,8 +37,25 @@ module.exports = {
     },
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.esm.js'
+            'vue$': 'vue/dist/vue.esm.js',
+            'style':"./src/style",
+            '@':"./src"
         }
+    },
+    module:{
+        rules:[
+            {
+                test:/\.less$/,
+                use:[
+                    "style-loader","css-loader","less-loader"
+                ]
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,       //exclude表示忽略node_modules文件夹下的文件，不用转码
+            }
+        ]
     },
 
     plugins:[
@@ -55,11 +72,15 @@ module.exports = {
         
         //输出控制台插件
         new FriendlyErrorsWebpackPlugin({
+            //是否每次编译之间清除控制台
+            //默认为true
             clearConsole:true,
+            // 运行成功
             compilationSuccessInfo:{
                 messages:[`Your application is running here: http://${host}:${port}`],
                 // notes: ['Some additionnal notes to be displayed unpon successful compilation']
             },
+            //添加格式化程序和变换器（见下文）
             additionalFormatters: [],
             additionalTransformers: []
         })
