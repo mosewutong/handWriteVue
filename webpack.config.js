@@ -96,20 +96,7 @@ module.exports = {
             },
         }),
         
-        //输出控制台插件
-        new FriendlyErrorsWebpackPlugin({
-            //是否每次编译之间清除控制台
-            //默认为true
-            clearConsole:true,
-            // 运行成功
-            compilationSuccessInfo:{
-                messages:[`Your application is running here: http://${host}:${port}`],
-                // notes: ['Some additionnal notes to be displayed unpon successful compilation']
-            },
-            //添加格式化程序和变换器（见下文）
-            additionalFormatters: [],
-            additionalTransformers: []
-        }),
+        
 
         //引入vue-loader报错的解决方案
         new VueLoaderPlugin(),
@@ -140,3 +127,22 @@ module.exports = {
 //     // },
 //     // module.exports.optimization.minimizer = [new UglifyJsPlugin()];
 // }
+
+if(process.env.NODE_ENV === 'development'){
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        //输出控制台插件
+        new FriendlyErrorsWebpackPlugin({
+            //是否每次编译之间清除控制台
+            //默认为true
+            clearConsole:true,
+            // 运行成功
+            compilationSuccessInfo:{
+                messages:[`Your application is running here: http://${host}:${port}`],
+                // notes: ['Some additionnal notes to be displayed unpon successful compilation']
+            },
+            //添加格式化程序和变换器（见下文）
+            additionalFormatters: [],
+            additionalTransformers: []
+        }),
+    ])
+}
