@@ -21,7 +21,6 @@ module.exports = {
         publicPath: './', // 通过devServer访问路径
         filename: 'app.[hash:8].js' // 打包后的文件名
     },
-    devtool:"source-map",
     //启动一个web服务器
     devServer: {
         contentBase:path.join(__dirname,"dist"),  // 服务器目录   
@@ -144,5 +143,6 @@ if(process.env.NODE_ENV === 'development'){
             additionalFormatters: [],
             additionalTransformers: []
         }),
-    ])
+    ]),
+    module.exports.devtool = "source-map"
 }
